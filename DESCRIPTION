@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: 
     person("Claire", "Cusack", email="claire.cusack@louisville.edu", role=c("aut", "cre"))
 Description: Functions for working with datasets that don't have data validation on the front end. For example, you tell the functions which columns have heights and weights to get to wrangle, and it converts the columns to inches and pounds, respectively.
-License: `use_gpl3_license()`
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Imports:
