@@ -22,7 +22,7 @@ check_measure=function(x, min, max){
   { valid <- function(x) {  sum(!is.na(x))}
 
     if(is.vector(x)){
-      stats = data.frame(matrix(rep(NA,5),ncol=5) )   #create a temporary arraystats[1, 1] <-  mean(x, na.rm=na.rm )
+      stats = data.frame(matrix(rep(NA,5),ncol=5))
       stats[1,1]=""
       stats[1, 2]=round(mean(x,na.rm=TRUE),2)
       stats[1, 3]=round(sd(x,na.rm=TRUE),2)
@@ -57,3 +57,4 @@ check_measure=function(x, min, max){
                                     "All observations are within the possible range for this variable.")
   return(results)
 }
+
