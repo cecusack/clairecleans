@@ -15,15 +15,12 @@ knitr::opts_chunk$set(
 ```
 
 # Get to know data
-```{r setup}
+```{r setup, warning=FALSE, message=FALSE}
 library(clairecleans)
+
 #> to load datasets in this package
 data(dat, package="clairecleans")
 data(fake_data, package="clairecleans")
-
-#> quick view data
-head(dat)
-head(fake_data)
 ```
 # fixheight
 
@@ -144,7 +141,7 @@ The string "Pass" signifies all observations are within range. The string "CHECK
 Also returns a message listing variables that did fall outside of possible values for that item.    
 
 If multiple items have the same range, you can concatenate a list using examples 2-4 below.
-```{r}
+```{r results='hide'}
 #> example of checking one item
 check_measure(fake_data$edeq6_1, 0, 6)
 
@@ -153,9 +150,5 @@ check_measure(fake_data[,grep('bdi_[0-9]{1,2}_clinical', colnames(fake_data))],0
 
 #> example checking multiple items using column numbers
 check_measure(fake_data[,c(41,48)], 0,3)
-
-#> example checking multiple items using c(which(colnames(dat)=="var"), which(colnames(dat)=="var2"))
-check_measure(fake_data[,c(which(colnames(fake_data)=="edeq6_1"), which(colnames(fake_data)=="ede6_6"))], 0,6)
-
 ```
 
