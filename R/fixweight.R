@@ -1,8 +1,7 @@
+#' Wrangle weight data
 #' @import measurements
 #' @import mgsub
 #' @import tidyverse
-#' Wrangle weight data
-#'
 #' @param df A dataframe.
 #' @param var Column name containing messy weight data.
 #' @return
@@ -14,6 +13,7 @@
 #' fixheight(dat, "weight")
 #' fixheight(fake_data, "demo_10")
 #' @export
+#'
 #'
 fixweight = function(df, var){
   object_name <- deparse(substitute(df))

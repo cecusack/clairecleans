@@ -1,9 +1,8 @@
-# wow, we have problems with height. data validation up front is easier but here's a function that will solve most problems
+#' Wrangle height data
 #' @import measurements
 #' @import mgsub
-#' @import tidyverse
-#' Wrangle height data
-#'
+#' @import magrittr
+#' @import dplyr
 #' @param df A dataframe.
 #' @param var Column name containing messy height data.
 #' @return
@@ -15,6 +14,8 @@
 #' fixheight(dat, "height")
 #' fixheight(fake_data, "demo_9")
 #' @export
+#'
+
 fixheight = function(df, var){
   object_name <- deparse(substitute(df))
   # input check
@@ -119,3 +120,4 @@ fixheight = function(df, var){
   return(results)
 
 }
+

@@ -9,7 +9,8 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Imports:
-    tidyverse,
+    dplyr,
+    magrittr,
     measurements,
     mgsub
 RoxygenNote: 7.1.1

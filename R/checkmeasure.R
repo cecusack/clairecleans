@@ -1,8 +1,7 @@
+#' Check the range of responses
 #' @import measurements
 #' @import mgsub
 #' @import tidyverse
-#' Check the range of responses
-#'
 #' @param x Measure/s you want to check.
 #' @param min Minimum value for the item/s
 #' @param max Minimum value for the item/s
