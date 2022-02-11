@@ -14,7 +14,7 @@
 #' @examples
 #' fixheight(dat, "height")
 #' fixheight(fake_data, "demo_9")
-#
+#' @export
 fixheight = function(df, var){
   object_name <- deparse(substitute(df))
   # input check

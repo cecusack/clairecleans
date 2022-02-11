@@ -13,7 +13,8 @@
 #' @examples
 #' fixheight(dat, "weight")
 #' fixheight(fake_data, "demo_10")
-#
+#' @export
+#'
 fixweight = function(df, var){
   object_name <- deparse(substitute(df))
   # input check

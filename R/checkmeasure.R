@@ -12,7 +12,8 @@
 #' check_measure(fake_data[,grep('bdi_[0-9]{1,2}_clinical', colnames(fake_data))],0,6)
 #' check_measure(fake_data[,c(41,48)], 0,3)
 #' check_measure(fake_data[,c(which(colnames(fake_data)=="edeq6_1"), which(colnames(fake_data)=="ede6_6"))], 0,6)
-
+#' @export
+#'
 check_measure=function(x, min, max){
   # input check
   if(missing(x)) stop("Specify the variable(s) you want to check (e.g., dat$var).")
