@@ -18,4 +18,3 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 URL: https://github.com/cecusack/clairecleans
-BugReports: https://github.com/cecusack/clairecleans/issues
