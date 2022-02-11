@@ -14,7 +14,7 @@ library(tidyverse)
 #' @examples
 #' fixheight(dat, "height")
 #' fixheight(fake_data, "demo_9")
-
+#
 fixheight = function(df, var){
   object_name <- deparse(substitute(df))
   # input check
