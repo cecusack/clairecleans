@@ -16,10 +16,13 @@ knitr::opts_chunk$set(
 
 # Get to know data
 ```{r setup}
-library(clairecleans)
-#> to load datasets from this package, uncomment lines below
-#> data(dat)
-#> data(fake_data)
+library(devtools)
+devtools::install_github("cecusack/clairecleans")
+
+#> to load datasets in this package
+data(dat, package="clairecleans")
+data(fake_data, package="clairecleans")
+
 #> quick view data
 head(dat)
 head(fake_data)
