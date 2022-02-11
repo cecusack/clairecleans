@@ -23,7 +23,7 @@ check_measure=function(x, min, max){
 
     if(is.vector(x)){
       stats = data.frame(matrix(rep(NA,5),ncol=5) )   #create a temporary arraystats[1, 1] <-  mean(x, na.rm=na.rm )
-      stats[1,1]=x
+      stats[1,1]=deparse(substitute(x))
       stats[1, 2]=round(mean(x,na.rm=TRUE),2)
       stats[1, 3]=round(sd(x,na.rm=TRUE),2)
       stats[1, 4]=min(x,na.rm=TRUE)
