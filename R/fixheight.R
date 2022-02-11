@@ -1,7 +1,7 @@
 # wow, we have problems with height. data validation up front is easier but here's a function that will solve most problems
-library(measurements)
-library(mgsub)
-library(tidyverse)
+#' @import measurements
+#' @import mgsub
+#' @import tidyverse
 #' Wrangle height data
 #'
 #' @param df A dataframe.

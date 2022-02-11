@@ -14,10 +14,15 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r include=FALSE}
+library(roxygen2)
+```
+
 # Get to know data
 ```{r setup}
 library(devtools)
 devtools::install_github("cecusack/clairecleans")
+library(dplyr)
 
 #> to load datasets in this package
 data(dat, package="clairecleans")

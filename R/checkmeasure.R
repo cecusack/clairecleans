@@ -1,6 +1,6 @@
-library(measurements)
-library(mgsub)
-library(tidyverse)
+#' @import measurements
+#' @import mgsub
+#' @import tidyverse
 #' Check the range of responses
 #'
 #' @param x Measure/s you want to check.

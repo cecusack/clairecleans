@@ -1,6 +1,6 @@
-library(measurements)
-library(mgsub)
-library(tidyverse)
+#' @import measurements
+#' @import mgsub
+#' @import tidyverse
 #' Wrangle weight data
 #'
 #' @param df A dataframe.
