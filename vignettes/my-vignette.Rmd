@@ -1,0 +1,160 @@
+---
+title: "Claire Cleans Vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Get to know data
+```{r setup}
+library(clairecleans)
+#> to load datasets from this package, uncomment lines below
+#> data(dat)
+#> data(fake_data)
+#> quick view data
+head(dat)
+head(fake_data)
+```
+# fixheight
+
+`fixheight()` takes two arguments, the name of the dataframe and the name of the variable containing heights in quotes.    
+
+When you call the `fixheight()` function, you will receive a return message, a dataframe with flagged heights only, and a dataframe with updated heights.
+
+## Example 1
+
+```{r}
+#> Get a sense of what height looks like
+table(dat$height, useNA = "ifany") 
+#> a mess
+#> to only see unique values call line below
+#> unique(dat$height)
+
+fixheight(dat, "height")
+#> returns 2 columns, original height and new height. dataframe in global environment should have one extra column that it did prior to running this line
+#> you'll also see in your global environment a new dataframe called heightflag. This will include rows with heights that should be looked into. 
+```
+
+### Flagged heights
+```{r}
+heightflag %>% select(height_original, height) 
+#> one person said their height was 30 inches and one said it was 1234 inches. Those are implausible values
+
+#> example of how to make them NA
+#> not run
+#> dat[which(dat$height_original=="30"), "height"] <- NA
+#> dat[which(dat$height_original=="1234"), "height"] <- NA
+
+#> example of how to make all in height flagged NA in height cols, where participant id is named "id"
+dat[(dat$id %in% heightflag$id), "height"] <- NA
+#> check
+dat %>% select(height_original, height)
+#> you'll notice ID 16 and 17 now have NA in height col
+
+#> after you've addressed heights with problematic values, you can remove the heightflag object from your global environment
+#> not run
+#> rm(heightflag)
+```
+
+## Example 2
+```{r}
+head(fake_data) # height is var demo_9
+
+#> what does height look like 
+table(fake_data$demo_9, useNA = "ifany")
+
+#> use fixheight function
+fixheight(fake_data, "demo_9")  
+#> scroll through. look fine
+#> Notice: there is no dataframe titled heightflag with this example because no observations were identified as implausible
+
+#> check values
+psych::describe(fake_data$height) 
+#> min = 60, max = 69. mean = 63.74. none of the vals are implausible
+```
+
+# fixweight
+
+This function operates with the same conventions as fixheight. 
+```{r}
+#> see responses
+table(dat$weight)
+
+fixweight(dat, "weight")
+
+#> examine rows where weight was flagged
+weightflag %>% select(weight_original, weight) # "seventy seven"
+
+#> fix this observation manually
+dat[which(dat$weight_original=="seventy seven"), which(colnames(dat)=="weight")] <- 77
+
+#> check again
+#> not run
+#> dat %>% select(weight_original, weight)
+
+psych::describe(dat$weight) # mean = 147.76, min = 77, max = 274
+
+#> after weights checked, you can clean weightflag from environment
+#> rm(weightflag)
+```
+
+## Metric units
+
+Change height from inches to centimeters and weight in pounds to kilograms.
+```{r}
+#> change height from inches to cm
+#> not run
+#> dat$height=conv_unit(dat$height, from="inch", to="cm")
+
+#> change weight from pounds to kilograms
+#> not run
+#> dat$weight=conv_unit(dat$weight, from="lbs", to="kg")
+```
+
+## Calculate BMI
+
+if you've fixed height and weight, and want to calculate BMI.
+```{r}
+#> for imperial units inches and pounds
+dat$bmi=(dat$weight*703)/(dat$height^2)
+#> dat %>% select(height, weight, bmi)
+
+#> for metric units kg and cm
+#> not run
+#> dat$bmi=(dat$weight/(test$height^2))*10000
+#> dat %>% select(height, weight, bmi)
+```
+
+# check_measure
+
+Returns quick descriptives (mean, standard deviation, max, min) and a dataframe with columns min_check and max_check.    
+
+The string "Pass" signifies all observations are within range. The string "CHECK" indicates at least one observation is below the minimum or above the maximum.     
+
+Also returns a message listing variables that did fall outside of possible values for that item.    
+
+If multiple items have the same range, you can concatenate a list using examples 2-4 below.
+```{r}
+#> example of checking one item
+check_measure(fake_data$edeq6_1, 0, 6)
+
+#> example checking multiple items using grep()
+check_measure(fake_data[,grep('bdi_[0-9]{1,2}_clinical', colnames(fake_data))],0,6)
+
+#> example checking multiple items using column numbers
+check_measure(fake_data[,c(41,48)], 0,3)
+
+#> example checking multiple items using c(which(colnames(dat)=="var"), which(colnames(dat)=="var2"))
+check_measure(fake_data[,c(which(colnames(fake_data)=="edeq6_1"), which(colnames(fake_data)=="ede6_6"))], 0,6)
+
+```
+
