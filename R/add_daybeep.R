@@ -58,6 +58,8 @@ add_daybeep <- function(df, id, datetime){
     df <- df %>% dplyr::mutate(beepconsec = seq(1:n())) %>% relocate(beepconsec, .after = beepvar)
     # add day var
     df$dayvar <- floor(as.numeric(difftime(df$date, df$date[1], units="days")))+1
+
+    df <- df %>% sjmisc::move_columns(date, time, dayvar, beepvar, .after=datetime)
     assign(object_name, df, envir = globalenv())
   }
   return(df %>% select(id, dayvar, beepvar, beepconsec))
