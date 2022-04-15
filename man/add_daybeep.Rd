@@ -11,7 +11,7 @@ add_daybeep(df, id, datetime)
 
 \item{id}{The name of the column that contains participant ID variable}
 
-\item{datetime}{Column name with participant birthdate}
+\item{datetime}{Column name with date and time. Usually generated from Ethica or REDCap}
 }
 \value{
 Your dataframe with columns numbering the dates (dayvar), times (beepvar), and consecutive beeps (beepconsec).
