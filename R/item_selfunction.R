@@ -5,10 +5,10 @@
 #' @export
 #'
 item_sel <- function(df, num) {
-  means <- colMeans(df[,7:ncol(df)], na.rm = TRUE)
+  means <- colMeans(df[,ncol(df)], na.rm = TRUE)
 
   # create column for standard deviations
-  sds <- apply(df[,7:ncol(df)], 2, sd, na.rm = TRUE)
+  sds <- apply(df[,ncol(df)], 2, sd, na.rm = TRUE)
 
   # organize in dataframe
   data_itemselection <- data.frame(means, sds)
@@ -16,17 +16,20 @@ item_sel <- function(df, num) {
   # sort by means first in descending order
   data_itemselection <- data_itemselection[order(-data_itemselection$means),]
 
-  # select top 6 row names
+  # select top row names
+  topmeans_df <- data_itemselection %>% rownames_to_column() %>% top_n(num, means)
   topmeans <- data_itemselection %>% rownames_to_column() %>% top_n(num, means) %>% pull(rowname)
   topmeans # call to fill out DMS individual network log
   .GlobalEnv$names.means <- topmeans
   # sort by standard deviation
   data_itemselection <- data_itemselection[order(-data_itemselection$sds),]
 
-  # select top 6 sd row names
+  # select top sd row names
+  topsds_df <- data_itemselection %>% rownames_to_column() %>% top_n(num, sds)
   topsds <- data_itemselection %>% rownames_to_column() %>% top_n(num, sds) %>% pull(rowname)
   topsds # call to fill out DMS individual network log
   .GlobalEnv$names.sd <- topsds
 
-  return(list(topmeans = topmeans, topsds = topsds))
+  onedf = cbind(topmeans_df, topsds_df)
+  return(list(onedf, topmeans = topmeans, topsds = topsds))
 }
