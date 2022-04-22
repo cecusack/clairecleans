@@ -5,10 +5,10 @@
 #' @export
 #'
 item_sel <- function(df, num) {
-  means <- colMeans(df[,ncol(df)], na.rm = TRUE)
+  means <- colMeans(df, na.rm = TRUE)
 
   # create column for standard deviations
-  sds <- apply(df[,ncol(df)], 2, sd, na.rm = TRUE)
+  sds <- apply(df, 2, sd, na.rm = TRUE)
 
   # organize in dataframe
   data_itemselection <- data.frame(means, sds)
