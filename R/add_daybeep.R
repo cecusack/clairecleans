@@ -21,19 +21,21 @@ add_daybeep <- function(df, id, datetime){
   df <- df %>% separate(date, c("date","time"), sep = " ", fill = "right")
   df$date <- as.Date(df$date, "%Y-%m-%d")
 
+  df <- df %>% group_by(id) %>% arrange(lubridate::ymd(date), time) %>% ungroup()
+
   if(length(unique(df[[id]]))>1){
     list <- lapply(split(df, df[[id]]), data.frame, stringsAsFactors = FALSE)
-    list <- lapply(list, function(df){df[order(df[[datetime]]),]}) # put rows in order by time
+    # list <- lapply(list, function(df){df[order(df[[datetime]]),]}) # put rows in order by time
+
+    # add a day var across list
+    for(i in seq_along(list)){
+      list[[i]]$dayvar <- floor(as.numeric(difftime(list[[i]]$date, list[[i]]$date[1], units="days")))+1}
 
     # add a beep var across list
     list <- map(list, ~ .x %>%
                   group_by(date) %>%
                   mutate(beepvar = seq(1:n())) %>%
                   ungroup())
-
-    # add a day var across list
-    for(i in seq_along(list)){
-      list[[i]]$dayvar <- floor(as.numeric(difftime(list[[i]]$date, list[[i]]$date[1], units="days")))+1}
 
     # rbind list back into one dataframe
     df <- do.call("rbind", list)
