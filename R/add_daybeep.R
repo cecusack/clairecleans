@@ -10,19 +10,19 @@
 #'
 add_daybeep <- function(df, idvar, datetimevar){
   object_name <- deparse(substitute(df))
-  datetimevar <- deparse(substitute(datetimevar))
+  #datetimevar <- deparse(substitute(datetimevar))
 
   # input check
   if(missing(df)) stop("Enter the dataframe that needs a numbered day column and numbered beep column")
   if(missing(idvar)) stop("Enter the name of the column that contains participant ID variable in single quotes, e.g., 'id'")
   if(missing(datetimevar)) stop("Enter the name of the column that contains the date and time field in single quotes, e.g., 'Scheduled.Time'")
 
-  df$startdate <- df[[datetimevar]]
+  df[["startdate"]] <- df[[datetimevar]]
   # df[["startdate"]] <- df[[datetimevar]]  # copy datetime var into new col startdate
   # df <- df %>% dplyr::relocate(datetimevar, .before= startdate) # move startdate after datetime
 
   # remove timestamp specifier if it exists
-  df$startdate <- ifelse(grepl("\\D$", df$startdate), gsub("\\s*\\w*$", "", df$startdate), df$startdate) # works line by line. debugger has issue here
+  df$startdate <- ifelse(grepl("\\D$", df[["startdate"]]), gsub("\\s*\\w*$", "", df[["startdate"]]), df[["startdate"]])
 
   df <- df[order(df[[idvar]], df[["startdate"]]), ] # order by id and datetime
 
