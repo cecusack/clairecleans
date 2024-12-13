@@ -22,9 +22,9 @@ add_daybeep <- function(df, idvar, datetimevar){
   # df <- df %>% dplyr::relocate(datetimevar, .before= startdate) # move startdate after datetime
 
   # remove timestamp specifier if it exists
-  df$startdate <- ifelse(grepl("\\D$", df$startdate), gsub("\\s*\\w*$", "", df$startdate), df$startdate)
+  df$startdate <- ifelse(grepl("\\D$", df$startdate), gsub("\\s*\\w*$", "", df$startdate), df$startdate) # works line by line. debugger has issue here
 
-  df <- df[order(df[[id]], df[["startdate"]]), ] # order by id and datetime
+  df <- df[order(df[[idvar]], df[["startdate"]]), ] # order by id and datetime
 
   df[["starttime"]] <- format(as.POSIXct(df[["startdate"]],format="%Y-%m-%d %H:%M:%S"),"%H:%M:%S") # split into time only
   df[["startdate"]] <- format(as.POSIXct(df[["startdate"]],format="%Y-%m-%d %H:%M:%S"),"%Y-%m-%d") # split into date only
