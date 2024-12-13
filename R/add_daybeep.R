@@ -5,12 +5,12 @@
 #' @param df dataframe with time series data.
 #' @param idvar The name of the column that contains participant ID variable
 #' @param datetimevar Column name with date and time. Usually generated from Ethica or REDCap
-#' @return Your dataframe with columns numbering the dates (dayvar), times (beepvar), and consecutive beeps (beepconsec).
+#' @return Your dataframe with columns numbering the dates (day), times (beep), and consecutive beeps (beep_consec).
 #' @export
 #'
 add_daybeep <- function(df, idvar, datetimevar){
   object_name <- deparse(substitute(df))
-  datetime <- deparse(substitute(datetime))
+  datetimevar <- deparse(substitute(datetimevar))
 
   # input check
   if(missing(df)) stop("Enter the dataframe that needs a numbered day column and numbered beep column")
