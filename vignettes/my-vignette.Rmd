@@ -132,6 +132,11 @@ dat$bmi=(dat$weight*703)/(dat$height^2)
 #> dat %>% select(height, weight, bmi)
 ```
 
+# add_daybeep
+```{r}
+df <- add_daybeep(df=df, idvar='id', datetimevar = 'datetime')
+```
+
 # check_measure
 
 Returns quick descriptives (mean, standard deviation, max, min) and a dataframe with columns min_check and max_check.    
